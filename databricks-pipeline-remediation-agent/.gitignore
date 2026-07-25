@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+# Environment
+.env
+*.env
+
+# Build artefacts
+dist/
+build/
+*.egg-info/
+
+# Databricks Asset Bundle state
+.databricks/
+
+# Virtual environments
+venv/
+.venv/
+
+# uv — lock file is committed; local venv is not
+# uv.lock  ← do NOT ignore this file

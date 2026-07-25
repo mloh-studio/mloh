@@ -1,0 +1,15 @@
+resources:
+  pipelines:
+    pipeline_mock:
+      name: "remediation-agent-mock-pipeline-${bundle.target}"
+      catalog: "main"
+      schema: "default"
+      development: true
+      libraries:
+        - notebook:
+            path: ../src/pipeline/bronze_ingest.py
+        - notebook:
+            path: ../src/pipeline/silver_transform.py
+      # Webhook routing is configured post-deploy via the Databricks REST API.
+      # DAB does not support webhook_notifications for pipelines.
+      # See README.md Step 4 — Wire the webhook — for instructions.

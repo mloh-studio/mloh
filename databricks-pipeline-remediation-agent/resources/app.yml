@@ -1,0 +1,6 @@
+resources:
+  apps:
+    remediation_agent:
+      name: "pipeline-remediation-agent-${bundle.target}"
+      description: "FastAPI webhook receiver that classifies DLT pipeline errors and raises Teams notifications for non-transient failures."
+      source_code_path: ../src/agent

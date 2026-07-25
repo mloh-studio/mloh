@@ -1,0 +1,12 @@
+bundle:
+  name: databricks-pipeline-remediation-agent
+
+include:
+  - resources/pipeline.yml
+  - resources/app.yml
+
+targets:
+  dev:
+    default: true
+
+

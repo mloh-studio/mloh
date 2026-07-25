@@ -1,0 +1,11 @@
+# Files not needed in the Databricks workspace
+uv.lock
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+.python-version
+tests/
+SPEC.md
+README.md
+pyproject.toml
