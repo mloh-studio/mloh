@@ -1,0 +1,14 @@
+resources:
+  pipelines:
+    sensor_medallion:
+      name: zerobus-sensor-medallion
+      catalog: ${var.catalog}
+      schema: ${resources.schemas.zerobus_demo.name}
+      serverless: true
+      continuous: false
+      development: true
+      configuration:
+        zerobus_demo.source_table: ${var.catalog}.${resources.schemas.zerobus_demo.name}.${var.table}
+      libraries:
+        - file:
+            path: ../src/pipeline/sensor_medallion.py

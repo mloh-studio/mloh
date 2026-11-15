@@ -1,0 +1,13 @@
+resources:
+  schemas:
+    zerobus_demo:
+      catalog_name: ${var.catalog}
+      name: ${var.schema}
+      comment: IoT sensor events from Zerobus and the tables built from them.
+      # USE CATALOG for the same principal is granted in ../terraform.
+      grants:
+        - principal: ${var.sp_application_id}
+          privileges:
+            - USE_SCHEMA
+            - SELECT
+            - MODIFY

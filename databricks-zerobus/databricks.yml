@@ -1,0 +1,40 @@
+bundle:
+  name: databricks-zerobus-demo
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: >-
+      Existing Unity Catalog catalog. Defaults to the workspace's default catalog
+      (`workspace` on newer workspaces). Shared with other examples that build on
+      these tables.
+    default: workspace
+  schema:
+    description: >-
+      Domain schema owned by this bundle. Named after the data, not the ingest tool,
+      so downstream examples (ML, agents, dashboards) can read from a stable location.
+    default: iot_telemetry
+  table:
+    description: Zerobus landing (bronze) table name.
+    default: sensor_events_raw
+  warehouse_id:
+    description: SQL warehouse that runs the setup job. Override with BUNDLE_VAR_warehouse_id.
+    lookup:
+      warehouse: Serverless Starter Warehouse
+  sp_application_id:
+    description: >-
+      Application (client) ID of the service principal Zerobus authenticates as.
+      Output `sp_application_id` from ../terraform.
+
+targets:
+  # Tables land at a fixed location that other bundles can read from.
+  shared:
+    default: true
+    workspace:
+      root_path: ~/.bundle/${bundle.name}/${bundle.target}
+
+  # Your own copy: dev mode prefixes the schema with your username.
+  dev:
+    mode: development

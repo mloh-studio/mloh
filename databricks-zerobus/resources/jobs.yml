@@ -1,0 +1,35 @@
+resources:
+  jobs:
+    setup:
+      name: zerobus-demo-setup
+      tasks:
+        - task_key: create_landing_table
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../src/jobs/create_table.sql
+            parameters:
+              catalog: ${var.catalog}
+              schema: ${resources.schemas.zerobus_demo.name}
+              table: ${var.table}
+
+    process:
+      name: zerobus-demo-process
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: "4"
+      tasks:
+        - task_key: refresh_pipeline
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.sensor_medallion.id}
+
+        - task_key: check_tables
+          depends_on: [{ task_key: refresh_pipeline }]
+          environment_key: default
+          spark_python_task:
+            python_file: ../src/jobs/validate.py
+            parameters:
+              - ${var.catalog}
+              - ${resources.schemas.zerobus_demo.name}
+              - ${var.table}
